@@ -1,0 +1,36 @@
+plugins {
+    id 'java-library'
+}
+
+group = 'me.partlysunny'
+version = '1.0-RELEASE'
+
+repositories {
+    mavenCentral()
+    maven {
+        name "spigot-repo"
+        url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+    }
+}
+
+dependencies {
+    // We get 1.17.1 as NMS reflection will be used for before this version
+    compileOnly "org.spigotmc:spigot-api:1.17.1-R0.1-SNAPSHOT"
+    api project(":Commons")
+}
+
+def targetJavaVersion = 17
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release = targetJavaVersion
+    }
+}
