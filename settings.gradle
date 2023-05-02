@@ -1,0 +1,5 @@
+rootProject.name = 'EzBar'
+include 'Spigot'
+include 'Paper'
+include 'Commons'
+
