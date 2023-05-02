@@ -1,4 +1,4 @@
-package me.partlysunny.ezbar;
+package me.partlysunny.ezbar.version;
 
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
